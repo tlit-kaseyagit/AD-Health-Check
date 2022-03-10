@@ -12,7 +12,7 @@ $DCDiagResult = $Diaginfo | select-string -pattern '\. (.*) \b(passed|failed)\b 
 	[pscustomobject]$obj
 }
  
-$DCDiagStatus = foreach ($FailedResult in $DCDiagResult | Where-Object { $_.Testresult -ne "passed" -and $_.Testname -ne "DFSREvent" }) {
+$DCDiagStatus = foreach ($FailedResult in $DCDiagResult | Where-Object { $_.Testresult -ne "passed" -and $_.Testname -ne "DFSREvent" -and $_.Testname -ne "FRSEvent" }) {
 	"DC diag test failed on entity $($FailedResult.entity) - $($FailedResult.testname)"
 }
 if(!$DCDiagStatus){ $DCDiagStatus = "Healthy" }
